@@ -1,5 +1,4 @@
 from src.components.go_deep import GoDeep
-from src.components.csv_to_df import CsvToDf
 from src.components.sap_client import SapClient
 from src.components.csv_handler import CsvHandler
 from datetime import datetime
@@ -8,7 +7,6 @@ class UpdateOrders:
     
     def _setup(self) -> None:
         self.go_deep = GoDeep()
-        self.csv_to_df = CsvToDf()
         self.sap_client = SapClient()
         self.csv_handler = CsvHandler()
     
@@ -25,17 +23,17 @@ class UpdateOrders:
             raise Exception(f"❌ Ocorreu um erro no componente GoDeep: {error}")
         print("🛠️ Montando DataFrames...")
         try:
-            sellers_df = self.csv_to_df.to_df(".sellers.csv")
+            sellers_df = self.csv_handler.to_df(".sellers.csv")
         except Exception as error:
             raise Exception(f"❌ Ocorreu um erro gerar DataFrame dos vendedores: {error}")
         try:
-            orders_df = self.csv_to_df.to_df(".orders.csv")
+            orders_df = self.csv_handler.to_df(".orders.csv")
             orders_df_columns_used = orders_df[["ERP Codigo Pedido", "Nome do usuário", "Status"]]
             orders_df_filtered = orders_df_columns_used[orders_df_columns_used["ERP Codigo Pedido"].notna() & orders_df_columns_used["Nome do usuário"].isin(sellers_df["Seller Name"]) & orders_df_columns_used["Status"].isin(["Pedido integrado", "Pagamento aprovado", "Em separação"])]
         except Exception as error:
             raise Exception(f"❌ Ocorreu um erro gerar DataFrame das ordens: {error}")
         try:
-            orders_modified_df = self.csv_to_df.to_df("orders_modified.csv")
+            orders_modified_df = self.csv_handler.to_df("orders_modified.csv")
             orders_modified = orders_modified_df["Orders Modified"].astype(str).to_list()
         except Exception as error:
             raise Exception(f"❌ Ocorreu um erro gerar DataFrame das ordens modificadas: {error}")
