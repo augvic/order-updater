@@ -2,10 +2,14 @@ from os import getenv
 from dotenv import load_dotenv
 from os import path
 from requests import Session
+import sys
+import urllib3
+from urllib3.exceptions import InsecureRequestWarning
 
 class GoDeep:
 
     def login(self) -> None:
+        urllib3.disable_warnings(InsecureRequestWarning)
         load_dotenv()
         self.session = Session()
         self.payload = {
@@ -16,7 +20,11 @@ class GoDeep:
         self.session.post("https://positivo-pme.f1b2b.com.br/admin", data=self.payload, verify=False)
         
     def export_orders_to_csv(self) -> None:
-        destiny = path.abspath(path.join(path.dirname(__file__), "..", "..", "storage", ".orders.csv"))
+        if getattr(sys, 'frozen', False):
+            base_path = path.dirname(sys.executable)
+        else:
+            base_path = path.join(path.dirname(__file__), "..", "..")
+        destiny = path.abspath(path.join(base_path, "storage", ".orders.csv"))
         response = self.session.get("https://positivo-pme.f1b2b.com.br/admin/orders/export-csv", verify=False)
         with open(destiny, "wb") as file:
             file.write(response.content)
