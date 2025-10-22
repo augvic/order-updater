@@ -23,5 +23,5 @@ Frameworks:
 ## Screenshots
 
 <div>
-    <img width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" />
+    <img width="30px" src="https://raw.githubusercontent.com/augvic/order-updater/refs/heads/main/screenshots/print.png" />
 </div>
