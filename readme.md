@@ -23,5 +23,5 @@ Frameworks:
 ## Screenshots
 
 <div>
-    <img width="30px" src="https://raw.githubusercontent.com/augvic/order-updater/refs/heads/main/screenshots/print.png" />
+    <img width="500px" src="https://raw.githubusercontent.com/augvic/order-updater/refs/heads/main/screenshots/print.png" />
 </div>
