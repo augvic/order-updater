@@ -183,11 +183,31 @@ class SapClient:
                 except:
                     pass
     
+    def _flag_element(self, id: str, true_false: bool) -> None:
+        self.session.findById(id).selected = true_false
+    
+    def _find_libe_row(self) -> None:
+        row = 1
+        while True:
+            text = self._get_text(fr"wnd[0]/usr/tabsTABSTRIP_0300/tabpANWS/ssubSUBSCREEN:SAPLBSVA:0302/tblSAPLBSVATC_EO/txtJEST_BUF_EO-ETX04[1,0]")
+            if text == "LIBE":
+                break
+            else:
+                self.session.findById(r"wnd[0]/usr/tabsTABSTRIP_0300/tabpANWS/ssubSUBSCREEN:SAPLBSVA:0302/tblSAPLBSVATC_EO").verticalScrollbar.position = row + 1
+    
+    def _set_libe(self) -> None:
+        self._select_tab(r"wnd[0]/usr/tabsTAXI_TABSTRIP_HEAD/tabpT\11")
+        self._press_button(r"wnd[0]/usr/tabsTAXI_TABSTRIP_HEAD/tabpT\11/ssubSUBSCREEN_BODY:SAPMV45A:4305/btnBT_KSTC")
+        self._find_libe_row()
+        self._flag_element(r"wnd[0]/usr/tabsTABSTRIP_0300/tabpANWS/ssubSUBSCREEN:SAPLBSVA:0302/tblSAPLBSVATC_EO/chkJ_STMAINT-ANWSO[0,0]", True)
+    
     def update_order(self, order: str, partner_code: str, comission_code: str) -> None:
         self._enter_in_order(order)
         self._go_to_header()
         self._set_office()
         self._set_partner(partner_code)
+        self._set_libe()
+        self._press_back("0")
         self._press_back("0")
         self._access_item_level()
         self._set_comission(comission_code)
