@@ -10,7 +10,9 @@ class GoDeep:
 
     def login(self) -> None:
         urllib3.disable_warnings(InsecureRequestWarning)
-        load_dotenv()
+        base_path: str = getattr(sys, "_MEIPASS", path.join(path.dirname(__file__), "..", ".."))
+        dotenv_path =  path.abspath(path.join(base_path, ".env"))
+        load_dotenv(dotenv_path)
         self.session = Session()
         self.payload = {
             "username": getenv("GODEEP_EMAIL"),
@@ -24,7 +26,7 @@ class GoDeep:
             base_path = path.dirname(sys.executable)
         else:
             base_path = path.join(path.dirname(__file__), "..", "..")
-        destiny = path.abspath(path.join(base_path, "storage", ".orders.csv"))
+        destiny = path.abspath(path.join(base_path, "storage", "orders.csv"))
         response = self.session.get("https://positivo-pme.f1b2b.com.br/admin/orders/export-csv", verify=False)
         with open(destiny, "wb") as file:
             file.write(response.content)

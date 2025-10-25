@@ -1,10 +1,12 @@
 from PyInstaller.building.build_main import Analysis
 from PyInstaller.building.api import EXE, PYZ
-import os
+from os import path
+from shutil import copytree
 
 analysis = Analysis(
     scripts=['main.py'],
-    pathex=[os.path.abspath('.')],
+    pathex=[path.abspath('.')],
+    datas=[('.env', '.')],
     optimize=0
 )
 
@@ -19,3 +21,5 @@ exe = EXE(
     upx=True,
     icon="icon.ico"
 )
+
+copytree(path.abspath("storage"), path.abspath(path.join("dist", "storage")), dirs_exist_ok=True)
