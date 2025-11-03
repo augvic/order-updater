@@ -29,7 +29,8 @@ class UpdateOrders:
         try:
             orders_df = self.csv_handler.to_df("orders.csv")
             orders_df_columns_used = orders_df[["ERP Codigo Pedido", "Nome do usuário", "Status"]]
-            orders_df_filtered = orders_df_columns_used[orders_df_columns_used["ERP Codigo Pedido"].notna() & orders_df_columns_used["Nome do usuário"].isin(sellers_df["Seller Name"]) & orders_df_columns_used["Status"].isin(["Pedido integrado", "Pagamento aprovado", "Em separação"])]
+            orders_df_filtered = orders_df_columns_used[orders_df_columns_used["ERP Codigo Pedido"].notna() & orders_df_columns_used["Nome do usuário"].isin(sellers_df["Seller Name"]) & orders_df_columns_used["Status"].isin(["Pedido integrado", "Pagamento aprovado", "Em separação"])].copy()
+            orders_df_filtered["ERP Codigo Pedido"] = orders_df_filtered["ERP Codigo Pedido"].astype(int).astype(str)
         except Exception as error:
             raise Exception(f"❌ Ocorreu um erro gerar DataFrame das ordens: {error}")
         try:
