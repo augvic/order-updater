@@ -95,7 +95,7 @@ class SapClient:
     
     def _set_office(self) -> None:
         self._select_tab(r"wnd[0]/usr/tabsTAXI_TABSTRIP_HEAD/tabpT\01")
-        self._set_text(r"wnd[0]/usr/tabsTAXI_TABSTRIP_HEAD/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4301/ctxtVBAK-VKBUR", "1101")
+        self._set_text(r"wnd[0]/usr/tabsTAXI_TABSTRIP_HEAD/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4301/ctxtVBAK-VKBUR", "1148")
         self._set_text(r"wnd[0]/usr/tabsTAXI_TABSTRIP_HEAD/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4301/ctxtVBAK-VKGRP", "058")
     
     def _press_go(self, index: str) -> None:
