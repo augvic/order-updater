@@ -152,7 +152,7 @@ class SapClient:
             pass
         msg_bar = self._get_text(r"wnd[0]/sbar")
         if "sem garantia" in msg_bar:
-            raise Exception("Ordem com erro de garantia.")
+            raise Exception("Ordem sem garantia.")
         elif "Não foi efetuada" in msg_bar:
             return
         elif "foi gravado" in msg_bar:
@@ -164,24 +164,6 @@ class SapClient:
             except:
                 pass
             return
-    
-    def go_home(self) -> None:
-        while True:
-            if self.session.ActiveWindow.Text == "SAP Easy Access":
-                break
-            else:
-                try:
-                    self.session.findById("wnd[1]").close()
-                except:
-                    pass
-                try:
-                    self.session.findById("wnd[0]").sendVKey(3)
-                except:
-                    pass
-                try:
-                    self.session.findById("wnd[1]/usr/btnSPOP-OPTION2").press()
-                except:
-                    pass
     
     def _flag_element(self, id: str, true_false: bool) -> None:
         self.session.findById(id).selected = true_false
@@ -201,14 +183,38 @@ class SapClient:
         self._find_libe_row()
         self._flag_element(r"wnd[0]/usr/tabsTABSTRIP_0300/tabpANWS/ssubSUBSCREEN:SAPLBSVA:0302/tblSAPLBSVATC_EO/chkJ_STMAINT-ANWSO[0,0]", True)
     
+    def go_home(self) -> None:
+        try:
+            while True:
+                if self.session.ActiveWindow.Text == "SAP Easy Access":
+                    break
+                else:
+                    try:
+                        self.session.findById("wnd[1]").close()
+                    except:
+                        pass
+                    try:
+                        self.session.findById("wnd[0]").sendVKey(3)
+                    except:
+                        pass
+                    try:
+                        self.session.findById("wnd[1]/usr/btnSPOP-OPTION2").press()
+                    except:
+                        pass
+        except Exception as error:
+            raise Exception(f"Error in (SapClient) component in (go_home) method: {error}.")
+    
     def update_order(self, order: str, partner_code: str, comission_code: str) -> None:
-        self._enter_in_order(order)
-        self._go_to_header()
-        self._set_office()
-        self._set_partner(partner_code)
-        self._set_libe()
-        self._press_back("0")
-        self._press_back("0")
-        self._access_item_level()
-        self._set_comission(comission_code)
-        self._save_order()
+        try:
+            self._enter_in_order(order)
+            self._go_to_header()
+            self._set_office()
+            self._set_partner(partner_code)
+            self._set_libe()
+            self._press_back("0")
+            self._press_back("0")
+            self._access_item_level()
+            self._set_comission(comission_code)
+            self._save_order()
+        except Exception as error:
+            raise Exception(f"Error in (SapClient) component in (update_order) method: {error}.")

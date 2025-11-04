@@ -11,10 +11,16 @@ class CsvHandler:
             self.base_path = path.join(path.dirname(__file__), "..", "..")
     
     def save_order_modified(self, order: str) -> None:
-        csv_path = path.abspath(path.join(self.base_path, "storage", "orders_modified.csv"))
-        with open(csv_path, "a") as file:
-            file.write(order + "\n")
+        try:
+            csv_path = path.abspath(path.join(self.base_path, "storage", "orders_modified.csv"))
+            with open(csv_path, "a") as file:
+                file.write(order + "\n")
+        except Exception as error:
+            raise Exception(f"Error in (CsvHandler) component in (save_order_modified) method: {error}.")
     
     def to_df(self, csv_file_name: str) -> DataFrame:
-        csv_path = path.abspath(path.join(self.base_path, "storage", csv_file_name))
-        return read_csv(csv_path, sep=";", encoding="utf-8")
+        try:
+            csv_path = path.abspath(path.join(self.base_path, "storage", csv_file_name))
+            return read_csv(csv_path, sep=";", encoding="utf-8")
+        except Exception as error:
+            raise Exception(f"Error in (CsvHandler) component in (to_df) method: {error}.")
