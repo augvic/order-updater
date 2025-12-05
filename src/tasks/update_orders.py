@@ -34,7 +34,7 @@ class UpdateOrders:
                 orders = order_df_row["ERP Codigo Pedido"]
                 orders = str(orders).split("|")
                 for order in orders:
-                    order = str(int(order))
+                    order = str(int(float(order)))
                     if order not in orders_modified:
                         seller_df_row = sellers_df[sellers_df["Seller Name"] == order_df_row["Nome do usuário"]].iloc[0]
                         self.sap_client.update_order(order, seller_df_row["Partner Code"], seller_df_row["Comission Code"])
