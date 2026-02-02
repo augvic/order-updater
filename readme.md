@@ -1,27 +1,20 @@
 ## 🛠️ Order Updater
 
-🤖 Utility CLI software.
+🤖 CLI utility for automating order updates.
 
-## About
+## 📖 About
 
-This software automate SAP orders update process.
+⚙️ This software automates the SAP order update process, reducing manual work and improving consistency.
 
-## Tech Stack
+Designed to run via command line, it focuses on:
+- 🔁 Process automation.
+- ⚡ Faster order updates.
+- 🧠 Fewer human errors.
+
+## 🧰 Tech Stack
 
 Languages:
-<div>
-    <img width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
-</div>
+- 🐍 Python.
 
-<br>
-
-Frameworks:
-<div>
-    <img width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" />
-</div>
-
-## Screenshots
-
-<div>
-    <img width="500px" src="https://cdn.jsdelivr.net/gh/augvic/augvic@latest/screenshots/order-updater/1.png" />
-</div>
+External tools:
+- 📊 Pandas.
