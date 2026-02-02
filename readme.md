@@ -13,8 +13,8 @@ Designed to run via command line, it focuses on:
 
 ## 🧰 Tech Stack
 
-Languages:
+💻 Languages:
 - 🐍 Python.
 
-External tools:
+⚙️ External tools:
 - 📊 Pandas.
